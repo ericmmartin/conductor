@@ -15,30 +15,6 @@ fi
 
 echo "Creating conductor labels in ${REPO_SLUG}..."
 
-# State labels (mirror Project status).
-declare -A STATE_LABELS=(
-  ["conductor:ready"]="0e8a16"
-  ["conductor:in-progress"]="1d76db"
-  ["conductor:in-review"]="d4c5f9"
-  ["conductor:validating"]="fbca04"
-  ["conductor:validated"]="0e8a16"
-  ["conductor:done"]="cccccc"
-)
-
-# Block labels (project releases its slot while these are applied).
-declare -A BLOCK_LABELS=(
-  ["conductor:blocked-discovery"]="b60205"
-  ["conductor:blocked-dependency"]="b60205"
-  ["conductor:blocked-review"]="b60205"
-  ["conductor:blocked-conflict"]="b60205"
-)
-
-# Behavior labels.
-declare -A BEHAVIOR_LABELS=(
-  ["conductor:qodo-reviewed"]="5319e7"
-  ["skip-code-review"]="fbca04"
-)
-
 create_label() {
   local name="$1"
   local color="$2"
@@ -51,15 +27,22 @@ create_label() {
   fi
 }
 
-for label in "${!STATE_LABELS[@]}"; do
-  create_label "$label" "${STATE_LABELS[$label]}" "Conductor state"
-done
+# State labels (mirror Project status)
+create_label "conductor:ready"              "0e8a16" "Conductor state: ready to pick up"
+create_label "conductor:in-progress"        "1d76db" "Conductor state: being implemented"
+create_label "conductor:in-review"          "d4c5f9" "Conductor state: in code review"
+create_label "conductor:validating"         "fbca04" "Conductor state: awaiting human validation"
+create_label "conductor:validated"          "0e8a16" "Conductor state: human validated, ready to merge"
+create_label "conductor:done"               "cccccc" "Conductor state: shipped"
 
-for label in "${!BLOCK_LABELS[@]}"; do
-  create_label "$label" "${BLOCK_LABELS[$label]}" "Conductor block (releases slot)"
-done
+# Block labels (project releases its slot while these are applied)
+create_label "conductor:blocked-discovery"  "b60205" "Block: needs human decision"
+create_label "conductor:blocked-dependency" "b60205" "Block: cross-project dependency"
+create_label "conductor:blocked-review"     "b60205" "Block: Qodo failed to start within timeout"
+create_label "conductor:blocked-conflict"   "b60205" "Block: merge conflict"
 
-create_label "conductor:qodo-reviewed" "5319e7" "Qodo has reviewed this PR; do not re-trigger"
-create_label "skip-code-review" "fbca04" "Skip Qodo review for this issue's PR"
+# Behavior labels
+create_label "conductor:qodo-reviewed"      "5319e7" "Qodo has reviewed this PR; do not re-trigger"
+create_label "skip-code-review"             "fbca04" "Skip Qodo review for this issue's PR"
 
 echo "✅ Labels ready."
