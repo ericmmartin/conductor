@@ -1,0 +1,47 @@
+# Dependencies
+node_modules/
+.pnp.*
+.yarn/
+
+# Build output
+dist/
+build/
+*.tsbuildinfo
+
+# TypeScript
+*.js.map
+*.d.ts.map
+
+# Test
+coverage/
+.nyc_output/
+
+# Editor
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Env / secrets — never commit
+.env
+.env.local
+.env.*.local
+
+# Local profile overlay — per-developer overrides, never committed
+.conductor/profile.local.yml
+**/profile.local.yml
+
+# Runtime state — local to each daemon install, never committed
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+events.jsonl
+results/
+
+# Worktrees — daemon creates these per-issue, never committed
+worktrees/
+
+# OS
+Thumbs.db
+.DS_Store

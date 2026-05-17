@@ -1,0 +1,55 @@
+# Example: a Python project (pyproject.toml-based) that auto-merges on green.
+name: my-python-lib
+
+stack:
+  primary: python
+  db: sqlite
+
+project:
+  number: 1
+  status_field: Status
+  ready_status: Ready
+  ready_at_field: Ready At
+
+branches:
+  default: main
+  pr_target: main
+
+workflow:
+  mode: ship_when_green
+
+review:
+  default: required
+  skip_label: skip-code-review
+
+author: user
+
+gates:
+  - name: lint
+    command: ruff check .
+  - name: typecheck
+    command: mypy .
+  - name: test
+    command: pytest
+
+reviewers:
+  bots:
+    - qodo-code-review
+
+models:
+  default:
+    model: sonnet
+    effort: medium
+  skills:
+    triage:  { model: haiku, effort: low }
+    audit:   { model: haiku, effort: low }
+    ship:    { model: haiku, effort: low }
+    work:    { model: opus,  effort: high }
+
+notifications:
+  discord:
+    webhook_env: DISCORD_WEBHOOK
+
+version:
+  source: pyproject.toml
+  changelog: keepachangelog

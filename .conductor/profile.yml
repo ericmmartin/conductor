@@ -1,0 +1,73 @@
+# Conductor dogfoods itself. This is the profile for the conductor repo.
+name: conductor
+
+stack:
+  primary: typescript
+  db: sqlite
+
+project:
+  number: 1
+  status_field: Status
+  ready_status: Ready
+  ready_at_field: Ready At
+
+branches:
+  default: main
+  pr_target: main
+
+workflow:
+  mode: ship_when_green
+
+review:
+  default: required
+  skip_label: skip-code-review
+  start_wait_seconds: 30
+
+author: user
+
+gates:
+  - name: lint
+    command: npm run lint
+  - name: typecheck
+    command: npm run typecheck
+  - name: test
+    command: npm test
+  - name: build
+    command: npm run build
+
+reviewers:
+  bots:
+    - qodo-code-review
+
+models:
+  default:
+    model: sonnet
+    effort: medium
+  skills:
+    triage:  { model: haiku, effort: low }
+    audit:   { model: haiku, effort: low }
+    ship:    { model: haiku, effort: low }
+    work:    { model: opus,  effort: high }
+
+usage_gates:
+  start: 80
+  address: 85
+  ship: 90
+
+notifications:
+  discord:
+    webhook_env: DISCORD_WEBHOOK_CONDUCTOR
+
+version:
+  source: package.json
+  changelog: keepachangelog
+
+digest:
+  output: both
+  schedule: "0 18 * * *"
+
+notes: |
+  This is the conductor repo's own profile. It runs through itself eventually —
+  /conductor:ship on a conductor PR bumps the conductor version, writes the
+  conductor changelog, tags the conductor repo. Bootstrap problem: until Phase 1
+  lands a working /work skill, issues here are worked manually.

@@ -1,0 +1,71 @@
+# Example: a deploy-and-validate-style profile. PRs deploy to a feature-branch env
+# and wait for a human to add the `conductor:validated` label before merging.
+name: project-a
+
+stack:
+  primary: nextjs
+  secondary: python
+  db: postgres
+
+project:
+  number: 1
+  status_field: Status
+  ready_status: Ready
+  ready_at_field: Ready At
+
+branches:
+  default: preview
+  pr_target: preview
+
+workflow:
+  mode: deploy_and_validate
+
+review:
+  default: required
+  skip_label: skip-code-review
+
+author: user
+
+gates:
+  - name: lint
+    command: npm run lint
+  - name: typecheck
+    command: npm run typecheck
+  - name: test
+    command: npm test
+  - name: build
+    command: npm run build
+
+reviewers:
+  bots:
+    - qodo-code-review
+
+models:
+  default:
+    model: sonnet
+    effort: medium
+  skills:
+    triage:  { model: haiku, effort: low }
+    audit:   { model: haiku, effort: low }
+    ship:    { model: haiku, effort: low }
+    work:    { model: opus,  effort: high }
+
+notifications:
+  teams_bot:
+    channel_id_env: TEAMS_CHANNEL_PROJECT_A     # value lives in env, not committed
+    tenant_id_env: MICROSOFT_TENANT_ID
+  discord:
+    webhook_env: DISCORD_WEBHOOK_PROJECT_A
+
+version:
+  source: package.json
+  changelog: keepachangelog
+
+digest:
+  output: both
+  schedule: "0 18 * * *"
+
+notes: |
+  Project A deploys feature branches to a staging env for QA before merge.
+  Once a human verifies the deploy and adds `conductor:validated`, conductor
+  merges and runs the ship logic (version bump, changelog, tag, release).
