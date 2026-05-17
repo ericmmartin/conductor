@@ -145,7 +145,7 @@ The spike `/conductor:work` command — minimal end-to-end pipeline. Validates t
 - `packages/plugin/commands/work.md` exists with the conductor:work command
 - Running `/conductor:work <issue-number>` on a real `:ready` issue:
   - Reads the profile from cwd's `.conductor/profile.yml`
-  - Claims the issue (Project status `Ready` → `In Progress`, adds `conductor:in-progress` label)
+  - Claims the issue (Project status `Ready` → `In progress`, adds `conductor:in-progress` label)
   - Creates a worktree at `.git/worktrees-out/issue-<N>` on branch `conductor/issue-<N>` from the default branch
   - Spawns `claude -p` with a one-line prompt referencing the issue title and body
   - Writes `results/issue-<N>.json` matching the minimum schema
@@ -168,7 +168,7 @@ End-to-end validation of the Phase 0 spike on a throwaway issue. The goal isn't 
 ## Acceptance criteria
 - File a throwaway issue (e.g., "Test conductor:work spike") and set it to Ready on the Project board
 - Run `/conductor:work <throwaway-issue-number>` from a freshly cloned conductor repo
-- Confirm: Project status moves to In Progress, `conductor:in-progress` label is applied, a worktree is created at the expected path, Claude is invoked and writes its result JSON, the spike-complete comment is posted
+- Confirm: Project status moves to In progress, `conductor:in-progress` label is applied, a worktree is created at the expected path, Claude is invoked and writes its result JSON, the spike-complete comment is posted
 - Document any rough edges encountered as new issues (Phase 1 polish)
 
 ## Notes

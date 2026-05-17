@@ -5,7 +5,7 @@ description: Pick up a Ready issue from the configured Project board, claim it, 
 
 # /conductor:work
 
-Spike implementation. Drives a single issue from `Ready` to `In Progress`, creates a worktree, and spawns Claude with a one-line prompt to validate the end-to-end pipeline.
+Spike implementation. Drives a single issue from `Ready` to `In progress`, creates a worktree, and spawns Claude with a one-line prompt to validate the end-to-end pipeline.
 
 ## Usage
 
@@ -20,7 +20,7 @@ The current working directory must be the root of the target repo (the one with 
 1. Validates the target repo has a `.conductor/profile.yml`.
 2. Reads the profile (project number, status field, default branch, etc.).
 3. Checks the issue is at status `Ready` on the configured Project board.
-4. Claims the issue by atomically swapping Project status `Ready → In Progress` and adding the `conductor:in-progress` label.
+4. Claims the issue by atomically swapping Project status `Ready → In progress` and adding the `conductor:in-progress` label.
 5. Creates a git worktree at `.git/worktrees-out/issue-<N>` on a new branch `conductor/issue-<N>` from the profile's default branch.
 6. Spawns `claude -p` with a one-line prompt referencing the issue title and body.
 7. Writes a result JSON at `.conductor/results/issue-<N>.json`.
@@ -35,7 +35,7 @@ These come later phases:
 - Open a PR (Phase 1).
 - Address Qodo feedback (Phase 3).
 - Ship/merge/version-bump (Phase 1 for /ship, Phase 3 for the full flow).
-- Set the `Ready At` Project field (Phase 2 — daemon's job).
+- Set the `Ready at` Project field (Phase 2 — daemon's job).
 - Handle session-utilization gates (Phase 2).
 
 ## Implementation

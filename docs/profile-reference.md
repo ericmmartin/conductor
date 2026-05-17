@@ -17,7 +17,7 @@ project:
   number: 1
   status_field: Status
   ready_status: Ready
-  ready_at_field: Ready At
+  ready_at_field: Ready at
 
 branches:
   default: preview
@@ -55,10 +55,13 @@ models:
     model: sonnet
     effort: medium
   skills:
-    triage:  { model: haiku, effort: low }
-    audit:   { model: haiku, effort: low }
-    ship:    { model: haiku, effort: low }
-    work:    { model: opus,  effort: high }     # default work is heavy
+    audit:          { model: haiku,  effort: low }
+    ship:           { model: haiku,  effort: low }
+    digest:         { model: haiku,  effort: low }
+    spec:           { model: sonnet, effort: high }
+    reflect-usage:  { model: sonnet, effort: high }
+    work:           { model: opus,   effort: high }     # default work is heavy
+    # address, review, reflect default to sonnet/medium
 
 usage_gates:
   start: 80

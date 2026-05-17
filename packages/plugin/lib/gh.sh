@@ -7,7 +7,7 @@
 set -euo pipefail
 
 # gh_issue_status <issue_number>
-# Prints the issue's current Project status (e.g., "Ready", "In Progress").
+# Prints the issue's current Project status (e.g., "Ready", "In progress").
 # Empty string if the issue is not on the project board.
 gh_issue_status() {
   local issue_number="${1:?gh_issue_status requires an issue number}"
@@ -46,7 +46,7 @@ gh_issue_status() {
 }
 
 # gh_claim_issue <issue_number>
-# Atomically claim by swapping Project status from Ready → In Progress.
+# Atomically claim by swapping Project status from Ready → In progress.
 # Returns 0 on success, non-zero if the issue isn't in Ready state.
 gh_claim_issue() {
   local issue_number="${1:?gh_claim_issue requires an issue number}"
@@ -56,7 +56,7 @@ gh_claim_issue() {
     echo "gh_claim_issue: issue #${issue_number} is not Ready (current: ${current:-not on board})" >&2
     return 1
   fi
-  gh_set_status "$issue_number" "In Progress"
+  gh_set_status "$issue_number" "In progress"
   gh_add_label "$issue_number" "conductor:in-progress"
 }
 
@@ -127,7 +127,7 @@ gh_set_status() {
 }
 
 # gh_set_ready_at <issue_number>
-# Write the current ISO date to the Ready At Date field. Idempotent (skip if already set).
+# Write the current ISO date to the Ready at Date field. Idempotent (skip if already set).
 gh_set_ready_at() {
   local issue_number="${1:?gh_set_ready_at requires an issue number}"
   # TODO Phase 2 — the daemon writes this on first observation at Ready. The plugin spike doesn't need it.

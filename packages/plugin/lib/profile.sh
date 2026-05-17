@@ -13,7 +13,7 @@
 #   CONDUCTOR_PROJECT_NUMBER     — profile.project.number
 #   CONDUCTOR_STATUS_FIELD       — profile.project.status_field (default: "Status")
 #   CONDUCTOR_READY_STATUS       — profile.project.ready_status (default: "Ready")
-#   CONDUCTOR_READY_AT_FIELD     — profile.project.ready_at_field (default: "Ready At")
+#   CONDUCTOR_READY_AT_FIELD     — profile.project.ready_at_field (default: "Ready at")
 #   CONDUCTOR_DEFAULT_BRANCH     — profile.branches.default
 #   CONDUCTOR_AUTHOR             — profile.author (default: "user")
 #   CONDUCTOR_WORKFLOW_MODE      — profile.workflow.mode (default: "ship_when_green")
@@ -44,7 +44,7 @@ profile_load() {
   export CONDUCTOR_PROJECT_NUMBER="$(yq '.project.number' "$profile_path")"
   export CONDUCTOR_STATUS_FIELD="$(yq '.project.status_field // "Status"' "$profile_path")"
   export CONDUCTOR_READY_STATUS="$(yq '.project.ready_status // "Ready"' "$profile_path")"
-  export CONDUCTOR_READY_AT_FIELD="$(yq '.project.ready_at_field // "Ready At"' "$profile_path")"
+  export CONDUCTOR_READY_AT_FIELD="$(yq '.project.ready_at_field // "Ready at"' "$profile_path")"
   export CONDUCTOR_DEFAULT_BRANCH="$(yq '.branches.default' "$profile_path")"
   export CONDUCTOR_AUTHOR="$(yq '.author // "user"' "$profile_path")"
   export CONDUCTOR_WORKFLOW_MODE="$(yq '.workflow.mode // "ship_when_green"' "$profile_path")"

@@ -18,8 +18,8 @@ In practice, every repo we'd want to run conductor on benefits from a Project bo
 
 Conductor requires a GitHub Project per repo. No label-only mode. The Project board must have:
 
-- A `Status` single-select field with options including `Ready`, `In Progress`, `In Review`, `Validating`, `Blocked`, `Done`.
-- A `Ready At` custom Date field (orchestrator-written) used as the FIFO sort key.
+- A `Status` single-select field with options including `Ready`, `In progress`, `In review`, `Done` (and `Validating` for repos using `deploy_and_validate` mode). The GH Projects default template provides the first four out of the box. Blocked-ness is tracked via labels, not a status option.
+- A `Ready at` custom Date field (orchestrator-written) used as the FIFO sort key.
 
 Labels still exist and are mirrored to the Project status field, but Projects are the source of truth. **On conflict (drift between label and status), Project status wins** — the human manages the board; the orchestrator follows.
 
@@ -28,7 +28,7 @@ Labels still exist and are mirrored to the Project status field, but Projects ar
 **Positive:**
 - One queue signal, one claim strategy, one status-update path. Poller drops ~200 LOC of branching.
 - Project boards give the human a UI to re-prioritize, re-assign, and see the full system state without leaving GitHub.
-- Custom fields (e.g., `Ready At`, sprint, owner) are first-class.
+- Custom fields (e.g., `Ready at`, sprint, owner) are first-class.
 
 **Negative:**
 - Onboarding a repo requires a one-time Project setup. Mitigated by `/conductor:init` scaffolding most of it.
@@ -42,4 +42,4 @@ Labels still exist and are mirrored to the Project status field, but Projects ar
 ## Related
 
 - See [github-setup.md](../docs/github-setup.md) for the setup checklist.
-- See [concurrency-model.md](../docs/concurrency-model.md#selection-logic-each-cycle) for how the FIFO `Ready At` field is used.
+- See [concurrency-model.md](../docs/concurrency-model.md#selection-logic-each-cycle) for how the FIFO `Ready at` field is used.

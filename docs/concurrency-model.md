@@ -31,8 +31,8 @@ See [operational-mechanics.md](./operational-mechanics.md#block-types-and-how-hu
 1. For each project, identify the current state of its in-flight issue (if any). Determine whether the project wants a slot (has orchestrator-actionable work) or doesn't (stalled or fully done).
 2. Currently-occupied slots = projects with an active in-flight issue.
 3. Available slots = `cap - occupied`.
-4. For each idle project, compute its "next issue" by running the DAG scheduler over its `:ready` issues, then FIFO by `Ready At` among the unblocked. (Order is re-computed each cycle, so priority changes humans make on the Project board take effect on the next poll.)
-5. Sort idle eligible projects by their next issue's `Ready At` (oldest first).
+4. For each idle project, compute its "next issue" by running the DAG scheduler over its `:ready` issues, then FIFO by `Ready at` among the unblocked. (Order is re-computed each cycle, so priority changes humans make on the Project board take effect on the next poll.)
+5. Sort idle eligible projects by their next issue's `Ready at` (oldest first).
 6. Assign available slots to the head of that list.
 
 ## Configuration
@@ -56,8 +56,8 @@ The plugin can be invoked from anywhere — your laptop, the NUC console, a sepa
 When you run `/conductor:work #42` from any plugin install:
 
 1. The plugin queries GitHub for the issue's current Project status and labels.
-2. If status is `In Progress` / `In Review` / `Validating` (anything between picked-up and shipped), it refuses with a message naming the current state and any associated PR. Pass `--force` to override — you own the conflict risk.
-3. Otherwise it attempts to atomically claim the issue by swapping the Project status from `Ready` → `In Progress` (and the corresponding label). The swap is the mutex.
+2. If status is `In progress` / `In review` / `Validating` (anything between picked-up and shipped), it refuses with a message naming the current state and any associated PR. Pass `--force` to override — you own the conflict risk.
+3. Otherwise it attempts to atomically claim the issue by swapping the Project status from `Ready` → `In progress` (and the corresponding label). The swap is the mutex.
 4. If the swap succeeds, work proceeds. If it fails (another orchestrator or plugin instance claimed it in between), the plugin reports the conflict and exits cleanly.
 
 No connection to the NUC required. GitHub holds the lock. The daemon's poller treats issues claimed by a plugin instance the same as ones it claimed itself — it sees the `:in-progress` status, knows it's covered, doesn't touch it.

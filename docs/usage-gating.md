@@ -44,13 +44,15 @@ models:
     model: sonnet
     effort: medium
   skills:
-    triage:   { model: haiku,  effort: low }
-    audit:    { model: haiku,  effort: low }
-    ship:     { model: haiku,  effort: low }
-    address:  { model: sonnet, effort: medium }
-    review:   { model: sonnet, effort: medium }
-    spec:     { model: sonnet, effort: high }
-    work:     { model: opus,   effort: high }    # default work is heavy
+    audit:          { model: haiku,  effort: low }
+    ship:           { model: haiku,  effort: low }
+    digest:         { model: haiku,  effort: low }
+    address:        { model: sonnet, effort: medium }
+    review:         { model: sonnet, effort: medium }
+    reflect:        { model: sonnet, effort: medium }
+    spec:           { model: sonnet, effort: high }
+    reflect-usage:  { model: sonnet, effort: high }
+    work:           { model: opus,   effort: high }    # default work is heavy
 ```
 
 Per-issue overrides go in the issue body as plain keyword lines (same pattern as `semver: patch`):
