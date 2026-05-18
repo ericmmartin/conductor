@@ -1,0 +1,11 @@
+{
+  "name": "conductor",
+  "owner": { "name": "Eric Martin" },
+  "plugins": [
+    {
+      "name": "conductor",
+      "source": "./",
+      "description": "Autonomous SDLC orchestrator for GitHub-based projects"
+    }
+  ]
+}

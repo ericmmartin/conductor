@@ -123,7 +123,7 @@ gh_set_status() {
         value: { singleSelectOptionId: $option }
       }) { projectV2Item { id } }
     }
-  ' -F project="$project_id" -F item="$item_id" -F field="$field_id" -F option="$option_id" >/dev/null
+  ' -F project="$project_id" -F item="$item_id" -F field="$field_id" -f option="$option_id" >/dev/null
 }
 
 # gh_set_ready_at <issue_number>

@@ -2,7 +2,10 @@
   "name": "conductor",
   "version": "0.0.1",
   "description": "Autonomous SDLC orchestrator for GitHub-based projects. Picks up issues from a Project board, implements them, drives them through Qodo review, and ships.",
-  "author": "ericmmartin",
+  "author": {
+    "name": "Eric Martin",
+    "url": "https://github.com/ericmmartin"
+  },
   "license": "MIT",
   "homepage": "https://github.com/ericmmartin/conductor"
 }

@@ -15,10 +15,10 @@
 
 set -euo pipefail
 
-# result_write <issue_number> <status> [pr_number] [branch] [worktree] [tokens] [model]
+# result_write <issue_number> <result_status> [pr_number] [branch] [worktree] [tokens] [model]
 result_write() {
   local issue_number="${1:?result_write requires an issue number}"
-  local status="${2:?result_write requires a status}"
+  local result_status="${2:?result_write requires a status}"
   local pr_number="${3:-}"
   local branch="${4:-}"
   local worktree="${5:-}"
@@ -32,7 +32,7 @@ result_write() {
   # Build the JSON with jq so quoting is correct.
   jq -n \
     --argjson issue "$issue_number" \
-    --arg status "$status" \
+    --arg status "$result_status" \
     --arg pr_number "$pr_number" \
     --arg branch "$branch" \
     --arg worktree "$worktree" \
